@@ -3,6 +3,8 @@ Random class.
 """
 from random import randint
 
+from sympy import isprime
+
 
 class Random:
 	"""
@@ -25,10 +27,12 @@ class Random:
 		return random_number if cls.is_prime(random_number) else cls.get_random_prime(bits=bits)
 
 	@classmethod
-	def is_prime(cls, number) -> bool:
+	def is_prime(cls, number: int) -> bool:
 		"""
 		Check if a number is prime.
 
 		:param number: The value to check
 		:return: Boolean value; Is the value a prime number?
 		"""
+		# Implement later using Rabin-Miller
+		return isprime(number)
