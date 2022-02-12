@@ -39,7 +39,8 @@ class RSA:
 		# Delete unnecessary variables from memory
 		del p, q, n_totient
 
-	def encrypt(self, message: str, public_key: Tuple[int, int]) -> int:
+	@classmethod
+	def encrypt(cls, message: str, public_key: Tuple[int, int]) -> int:
 		"""
 		Encrypt a string using an RSA public key.
 
@@ -49,7 +50,7 @@ class RSA:
 		"""
 		# Convert message to an integer
 		# message ^ public_exponent ( % public_modulo )
-		return pow(self.__string_to_int(message), public_key[0], public_key[1])
+		return pow(cls.__string_to_int(message), public_key[0], public_key[1])
 
 	def decrypt(self, encrypted_message: int) -> str:
 		"""
@@ -60,7 +61,7 @@ class RSA:
 		"""
 		# message ^ private_exponent ( % public_modulo )
 		# Then convert the message to a string
-		return self.__int_to_string(pow(encrypted_message, self.__private_key, self.__public_key[2]))
+		return self.__int_to_string(pow(encrypted_message, self.__private_key, self.__public_key[1]))
 
 	def get_public_key(self) -> Tuple[int, int]:
 		"""
