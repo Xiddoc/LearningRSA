@@ -2,6 +2,7 @@
 RSA class.
 """
 from math import lcm, ceil
+from typing import Tuple
 
 from Random import Random
 
@@ -12,7 +13,7 @@ class RSA:
 	For a new public and private key, make a new instance.
 	"""
 
-	__public_key: int
+	__public_key: Tuple[int, int]
 	__private_key: int
 
 	def __init__(self, bit_count: int = 1024) -> None:
@@ -31,7 +32,14 @@ class RSA:
 		# Calulate d as the modular multiplicative inverse of e modulo λ(n)
 		d: int = pow(e, -1, n_totient)
 
-	def get_public_key(self) -> int:
+		# Let's assign the keys to the class variables
+		self.__public_key = (e, n)  # (Public Exponent, Modulus)
+		self.__private_key = d  # Private Exponent
+
+		# Delete unnecessary variables from memory
+		del p, q, n_totient
+
+	def get_public_key(self) -> Tuple[int, int]:
 		"""
 		:return: This instance's public key.
 		"""
