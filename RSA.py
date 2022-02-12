@@ -2,6 +2,7 @@
 RSA class.
 """
 
+import math
 
 class RSA:
 	"""
@@ -23,3 +24,15 @@ class RSA:
 		:return: This instance's private key.
 		"""
 		return self.__private_key
+
+	def __string_to_int(self, data: str) -> int:
+		"""
+		:return: String to Integer
+		"""
+		return int.from_bytes(data.encode(), byteorder='big')
+
+	def __int_to_string(self, data: int) -> str:
+		"""
+		:return: Integer to String
+		"""
+		return data.to_bytes(math.ceil(data.bit_length() / 8), byteorder='big').decode()
