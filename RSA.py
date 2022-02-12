@@ -43,13 +43,15 @@ class RSA:
 		"""
 		return self.__private_key
 
-	def __string_to_int(self, data: str) -> int:
+	@staticmethod
+	def __string_to_int(data: str) -> int:
 		"""
 		:return: String to Integer
 		"""
 		return int.from_bytes(data.encode(), byteorder='big')
 
-	def __int_to_string(self, data: int) -> str:
+	@staticmethod
+	def __int_to_string(data: int) -> str:
 		"""
 		:return: Integer to String
 		"""
