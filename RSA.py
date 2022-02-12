@@ -1,11 +1,10 @@
 """
 RSA class.
 """
-from math import lcm
+from math import lcm, ceil
 
 from Random import Random
 
-import math
 
 class RSA:
 	"""
@@ -54,4 +53,4 @@ class RSA:
 		"""
 		:return: Integer to String
 		"""
-		return data.to_bytes(math.ceil(data.bit_length() / 8), byteorder='big').decode()
+		return data.to_bytes(ceil(data.bit_length() / 8), byteorder='big').decode()
