@@ -41,8 +41,8 @@ class MathUtils:
 		# Implement later using Rabin-Miller
 		return isprime(number)
 
-	@classmethod
-	def lcm(cls, a, b):
+	@staticmethod
+	def lcm(a, b):
 		"""
 		Math.lcm implementation (since not available in 3.8).
 		:return:
