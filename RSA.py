@@ -1,10 +1,11 @@
 """
 RSA class.
 """
-from math import lcm, ceil
+from math import ceil
 from typing import Tuple
+import json
 
-from Random import Random
+from MathUtils import MathUtils
 
 
 class RSA:
@@ -18,15 +19,15 @@ class RSA:
 
 	def __init__(self, bit_count: int = 1024) -> None:
 		# Get 2 large prime numbers, p and q
-		p: int = Random.get_random_prime(bits=bit_count)
-		q: int = Random.get_random_prime(bits=bit_count)
+		p: int = MathUtils.get_random_prime(bits=bit_count)
+		q: int = MathUtils.get_random_prime(bits=bit_count)
 		# Calculate n = p * q
 		n: int = p * q
 		# Get totient function of n, which looks like: λ(n)
 		# All of the math is explained on the linked Wikipedia
 		# page, but the takeaway is: λ(n) = lcm(p − 1, q − 1)
 		# FIXME: THIS ONLY WORKS ON Python 3.9
-		n_totient: int = lcm(p - 1, q - 1)
+		n_totient: int = MathUtils.lcm(p - 1, q - 1)
 		# Get value for e (not to be mistaken for Euler's irrational number, which is equal to 2.718...)
 		e: int = 65537  # FIXME: THIS ONLY WORKS IF n_totient is larger than 65537
 		# Calulate d as the modular multiplicative inverse of e modulo λ(n)
@@ -88,3 +89,12 @@ class RSA:
 		:return: Integer to String
 		"""
 		return data.to_bytes(ceil(data.bit_length() / 8), byteorder='big').decode()
+
+	@staticmethod
+	def serialize_pub_key(key: Tuple[int, int]) -> bytes:
+		return json.dumps({"e": key[0], "m": key[1]}).encode("utf-8")
+
+	@staticmethod
+	def deserialize_pub_key(data: bytes) -> Tuple[int, int]:
+		pub_dict = json.loads(data.decode("utf-8"))
+		return pub_dict["e"], pub_dict["m"]

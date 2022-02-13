@@ -2,11 +2,12 @@
 Random class.
 """
 from random import randint
+from math import gcd
 
 from sympy import isprime
 
 
-class Random:
+class MathUtils:
 	"""
 	Static class for random numbers
 	and other number operations.
@@ -39,3 +40,11 @@ class Random:
 		"""
 		# Implement later using Rabin-Miller
 		return isprime(number)
+
+	@staticmethod
+	def lcm(a, b):
+		"""
+		Math.lcm implementation (since not available in 3.8).
+		:return:
+		"""
+		return abs(a*b) // gcd(a, b)
